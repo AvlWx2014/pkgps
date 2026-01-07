@@ -7,7 +7,7 @@ authors = [
 dependencies = [
     "attrs>=24.2.0",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "MIT"}
 dynamic = ["version"]
