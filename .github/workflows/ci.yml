@@ -24,24 +24,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
-      - name: Setup Python (3.7)
-        uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c  # v5.0.0
+        uses: actions/checkout@v5
+      - name: Setup Python (3.10)
+        uses: actions/setup-python@v6.1.0
         with:
-          python-version: "3.7"
+          python-version: "3.10"
           architecture: x64
       - name: Install PDM
-        run: pip install setuptools wheel pdm
+        uses: pdm-project/setup-pdm@v4.4
       - name: Cache Venv
-        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2  # v4.0.0
+        uses: actions/cache@v5.0.1
         with:
           path: .venv
           key: venv-${{ hashFiles('pdm.lock') }}
           restore-keys: |
             venv-
       - name: Provision Environment
-        run: pdm sync -dG:all
+        run: pdm install --dev -G all
         if: steps.cache-venv.outputs.cache-hit != 'true'
+      - name: Synchronize Environment
+        run: pdm sync --dev -G all
+        if: steps.cache-venv.outputs.cache-hit == 'true'
       - name: Lint
         run: pdm lint-check
       - name: Check Formatting
@@ -59,16 +62,16 @@ jobs:
         python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11", "3.12" ]
     steps:
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+        uses: actions/checkout@v5
       - name: Setup Python (${{ matrix.python-version }})
-        uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c  # v5.0.0
+        uses: actions/setup-python@v6.1.0
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
           cache: pip
       - name: Cache Venv
         id: cache-venv
-        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2  # v4.0.0
+        uses: actions/cache@v5.0.1
         with:
           path: .venv
           key: venv-${{ hashFiles('pdm.lock') }}
@@ -77,8 +80,11 @@ jobs:
       - name: Install PDM
         run: pip install setuptools wheel pdm
       - name: Provision Environment
-        run: pdm sync -dG:all
+        run: pdm install --dev -G all
         if: steps.cache-venv.outputs.cache-hit != 'true'
+      - name: Synchronize Environment
+        run: pdm sync --dev -G all
+        if: steps.cache-venv.outputs.cache-hit == 'true'
       - name: Unit Tests
         run: pdm test
 
