@@ -3,7 +3,7 @@ from __future__ import annotations
 __all__ = ["NEVRA"]
 
 from attrs import asdict, evolve, field, frozen
-from attrs.validators import matches_re
+from attrs.validators import ge, matches_re
 
 from ..parse import parse_nevra, parse_nevra_or_none
 from .nevr import NEVR
@@ -32,7 +32,7 @@ class NEVRA:
         )
     )
     """Name. Must not contain: < > = whitespace { } %"""
-    epoch: int = 0
+    epoch: int = field(default=0, validator=ge(0))
     """Epoch."""
     version: str
     """Version."""

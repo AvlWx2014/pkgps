@@ -3,7 +3,7 @@ from __future__ import annotations
 __all__ = ["NEVR"]
 
 from attrs import asdict, evolve, field, frozen
-from attrs.validators import matches_re
+from attrs.validators import ge, matches_re
 from typing_extensions import Self
 
 from ..parse import parse_nevr, parse_nevr_or_none
@@ -31,7 +31,7 @@ class NEVR:
         )
     )
     """Name. Must not contain: < > = whitespace { } %"""
-    epoch: int = 0
+    epoch: int = field(default=0, validator=ge(0))
     """Epoch."""
     version: str
     """Version."""
