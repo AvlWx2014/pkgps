@@ -146,3 +146,45 @@ starting in version `1.y.z` `pkgps` types like `NVR` and its higher precision co
 unpack dimension-wise from left-to-right e.g. `name, version, release` for `NVR`, 
 `name, epoch, version, release, architecture` for `NEVRA` etc and this is guaranteed not to 
 change within major version `1`.
+
+## Installation
+
+Install `pkgps` with base functionality, use:
+
+```shell
+pip install pkgps
+```
+
+## Extensions
+For convenience `pkgps` ships with built-in extensions of each type for your favorite data class 
+library including:
+
+* [`attrs`][_attrs]
+* [`pydantic`][_pydantic]
+
+### Installing with `attrs` support
+
+To install `pkgps` with `attrs` extensions enabled, use:
+
+```shell
+pip install pkgps[attrs]
+```
+
+### Installing with `pydantic` support
+
+To install `pkgps` with `pydantic` extensions enabled, use:
+
+```shell
+pip install pkgps[pydantic]
+```
+
+### Installing with all extensions
+
+To install `pkgps` with all extensions enabled, use:
+
+```shell
+pip install pkgps[all]
+```
+
+[_attrs]: https://www.attrs.org/en/stable/  
+[_pydantic]: https://docs.pydantic.dev/latest/  
