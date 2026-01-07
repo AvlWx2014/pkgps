@@ -36,6 +36,8 @@ class NEVR:
             f"Prohibited characters: {INVALID_NAME_CHARS_DISPLAY}",
         )
         require(epoch >= 0, "epoch must be a positive integer")
+        require(len(version) > 0, "Version cannot be empty")
+        require(len(release) > 0, "Release cannot be empty")
 
         self._name = name
         self._epoch = epoch

@@ -4,7 +4,7 @@ __all__ = ["NVR"]
 
 
 from attrs import asdict, evolve, field, frozen
-from attrs.validators import matches_re
+from attrs.validators import matches_re, min_len
 
 from ..parse import parse_nvr, parse_nvr_or_none
 
@@ -31,9 +31,9 @@ class NVR:
         )
     )
     """Name. Must not contain: < > = whitespace { } %"""
-    version: str
+    version: str = field(validator=min_len(1))
     """Version."""
-    release: str
+    release: str = field(validator=min_len(1))
     """Release."""
 
     copy = evolve

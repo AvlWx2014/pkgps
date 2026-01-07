@@ -28,9 +28,9 @@ class NVRA(Frozen):
 
     name: str = Field(pattern=r"^[^<>=\s{}%]+$")
     """Name. Must not contain: < > = whitespace { } %"""
-    version: str
+    version: str = Field(min_length=1)
     """Version."""
-    release: str
+    release: str = Field(min_length=1)
     """Release."""
     arch: str
     """Architecture."""

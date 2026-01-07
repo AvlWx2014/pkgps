@@ -3,7 +3,7 @@ from __future__ import annotations
 __all__ = ["NVRA"]
 
 from attrs import asdict, evolve, field, frozen
-from attrs.validators import matches_re
+from attrs.validators import matches_re, min_len
 
 from ..parse import parse_nvra, parse_nvra_or_none
 from .nvr import NVR
@@ -30,9 +30,9 @@ class NVRA:
         )
     )
     """Name. Must not contain: < > = whitespace { } %"""
-    version: str
+    version: str = field(validator=min_len(1))
     """Version."""
-    release: str
+    release: str = field(validator=min_len(1))
     """Release."""
     arch: str
     """Architecture."""
