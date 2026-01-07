@@ -56,25 +56,27 @@ class NEVRA:
     def __eq__(self, other: object) -> bool:
         return (
             isinstance(other, NEVRA)
-            and self.name == other.name
-            and self.epoch == other.epoch
-            and self.version == other.version
-            and self.release == other.release
-            and self.arch == other.arch
+            and self._name == other.name
+            and self._epoch == other.epoch
+            and self._version == other.version
+            and self._release == other.release
+            and self._arch == other.arch
         )
 
     def __hash__(self) -> int:
-        return hash((self._name, self.epoch, self.version, self.release, self.arch))
+        return hash((self._name, self._epoch, self._version, self._release, self._arch))
 
     def __repr__(self) -> str:
         return f"NEVRA(name={self._name!r}, epoch={self._epoch!r}, version={self._version!r}, release={self._release!r}, arch={self._arch!r})"
 
     def __str__(self) -> str:
-        epoch_string = f"{self.epoch}:" if self.epoch else ""
-        return f"{self.name}-{epoch_string}{self.version}-{self.release}.{self.arch}"
+        epoch_string = f"{self._epoch}:" if self._epoch else ""
+        return (
+            f"{self._name}-{epoch_string}{self._version}-{self._release}.{self._arch}"
+        )
 
     def __iter__(self):
-        return iter((self.name, self.epoch, self.version, self.release, self.arch))
+        return iter((self._name, self._epoch, self._version, self._release, self._arch))
 
     @property
     def name(self) -> str:

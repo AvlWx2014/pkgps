@@ -54,23 +54,23 @@ class NEVR:
         return (
             isinstance(other, NEVR)
             and self._name == other.name
-            and self.epoch == other.epoch
-            and self.version == other.version
-            and self.release == other.release
+            and self._epoch == other.epoch
+            and self._version == other.version
+            and self._release == other.release
         )
 
     def __hash__(self) -> int:
-        return hash((self._name, self.epoch, self.version, self.release))
+        return hash((self._name, self._epoch, self._version, self._release))
 
     def __repr__(self) -> str:
         return f"NEVR(name={self._name!r}, epoch={self._epoch!r}, version={self._version!r}, release={self._release!r})"
 
     def __str__(self) -> str:
-        epoch_string = f"{self.epoch}:" if self.epoch else ""
-        return f"{self.name}-{epoch_string}{self.version}-{self.release}"
+        epoch_string = f"{self._epoch}:" if self._epoch else ""
+        return f"{self._name}-{epoch_string}{self._version}-{self._release}"
 
     def __iter__(self):
-        return iter((self.name, self.epoch, self.version, self.release))
+        return iter((self._name, self._epoch, self._version, self._release))
 
     @property
     def name(self) -> str:
