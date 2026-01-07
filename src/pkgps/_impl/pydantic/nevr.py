@@ -30,9 +30,9 @@ class NEVR(Frozen):
     """Name. Must not contain: < > = whitespace { } %"""
     epoch: int = Field(default=0, ge=0)
     """Epoch."""
-    version: str
+    version: str = Field(min_length=1)
     """Version."""
-    release: str
+    release: str = Field(min_length=1)
     """Release."""
 
     @classmethod

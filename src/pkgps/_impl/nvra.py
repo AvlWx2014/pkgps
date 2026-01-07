@@ -33,6 +33,8 @@ class NVRA:
             f"Package name '{name}' contains invalid character {invalid_match.group() if invalid_match else ''}. "
             f"Prohibited characters: {INVALID_NAME_CHARS_DISPLAY}",
         )
+        require(len(version) > 0, "Version cannot be empty")
+        require(len(release) > 0, "Release cannot be empty")
 
         self._name = name
         self._version = version
